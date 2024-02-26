@@ -8,6 +8,7 @@ module Moderable
         end
 
         self.update(is_accepted: true)
+
         
         fields.each do |field|
             prediction = fetch_prediction(field)
@@ -18,12 +19,14 @@ module Moderable
 
     end
 
-    def fetch_prediction(text)
-        url = "https://moderation.logora.fr/predict"
-        response = Faraday.get(url, {text: text})
-        data = JSON.parse(response.body)
-        prediction = data["prediction"]["0"].to_f
+    private
 
-        return prediction
-    end
+        def fetch_prediction(text)
+            url = "https://moderation.logora.fr/predict"
+            response = Faraday.get(url, {text: text})
+            data = JSON.parse(response.body)
+            prediction = data["prediction"]["0"].to_f
+
+            return prediction
+        end
 end
