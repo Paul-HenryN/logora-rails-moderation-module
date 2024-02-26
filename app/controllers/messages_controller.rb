@@ -13,8 +13,9 @@ class MessagesController < ApplicationController
     
     def create
         @message = Message.new(message_params)
-
+        
         if @message.save
+            moderate_fields(@message)
             redirect_to messages_path
         else
             render :new, status: :unprocessable_entity
@@ -29,6 +30,7 @@ class MessagesController < ApplicationController
         @message = Message.find(params[:id])
 
         if @message.update(message_params)
+            @message.moderate([:body])
             redirect_to @message
         else
             render :edit, status: :unprocessable_entity
