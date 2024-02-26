@@ -1,0 +1,12 @@
+<%= form_with model: message do |form| %>
+    <div>
+        <%= form.text_area :body %>
+    </div>
+
+    <% message.errors.full_messages_for(:body).each do |error| %>
+        <div style="color: red;"><%= error %></div>
+    <% end %>
+    
+
+    <%= form.submit "Envoyer" %>
+<% end %>

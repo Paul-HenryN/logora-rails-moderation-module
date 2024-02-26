@@ -1,0 +1,17 @@
+<h1>Message #<%= @message.id %></h1>
+
+<div>
+    <p><%= @message.body %></p>
+    <p><b>Statut:</b> 
+        <% if @message.is_accepted == nil %>
+            En attente
+        <% elsif @message.is_accepted %>
+            Accepté
+        <% else %>
+            Refusé
+        <% end %>
+    </p>
+</div>
+
+<%= link_to "Modifier", edit_message_path(@message) %>
+<%= link_to "Supprimer", message_path(@message), data: {turbo_method: :delete, turbo_confirm: "Confirmer la suppression ?"} %>
